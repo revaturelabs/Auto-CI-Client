@@ -15,6 +15,11 @@ label {
     padding-right: 10px;
 }
 
+.create-form-table td {
+  word-wrap: break-word;
+  max-width: 100px;
+}
+
 
 /* The radio button styles */
 .create-account-label {

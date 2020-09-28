@@ -94,6 +94,9 @@
   <!-- Custom JS for all pages-->
   <script src="js/main.js"></script>
 
+  <%-- create project js --%>
+  <script src="js/create-project.js"></script>
+
 </body>
 
 </html>
