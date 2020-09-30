@@ -11,7 +11,7 @@ import org.apache.catalina.webresources.DirResourceSet;
 import org.apache.catalina.webresources.StandardRoot;
 
 /**
- * Robotap the app for developers
+ * Web interface for project 3
  */
 public class App {
     public static final Optional<String> port = Optional.ofNullable(System.getenv("PORT"));

@@ -36,9 +36,9 @@
 
     <!-- Nav Item - Tables -->
     <li class="nav-item">
-        <a class="nav-link" href="/logs">
+        <a class="nav-link" href="/progress">
         <i class="fas fa-fw fa-table"></i>
-        <span>Logs</span></a>
+        <span>Progress</span></a>
     </li>
 
     <!-- Divider -->
