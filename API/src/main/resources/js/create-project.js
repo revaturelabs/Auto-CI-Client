@@ -1,3 +1,5 @@
+
+//maven
 function searchDepend(term){
     console.log("starting " + term);
     if(!(term === "")){
@@ -6,11 +8,13 @@ function searchDepend(term){
       .catch(err => { console.log("found nothing")})
       .then(function(data) {
         // console.log(data.response.docs);
-        createDependTable(data.response.docs)
+        createDependTable(data.response.docs);
       })
       .catch(err => { console.log("found nothing")});
     }
 }
+
+//node
 
 function createDependTable(docs){
 
@@ -29,7 +33,7 @@ function createDependTable(docs){
     td3.setAttribute("id", doc["id"]);
     button.innerHTML = "Add";
     button.onclick = function() {addDepend(doc)}
-    button.className = "btn btn-sm btn-outline-secondary"
+    button.className = "btn btn-sm btn-outline-secondary";
     tr.appendChild(td1);
     tr.appendChild(td2);
     tr.appendChild(td3);
@@ -45,7 +49,7 @@ function createDependTable(docs){
 }
 
 function addDepend(doc){
-  addDependendieToList(doc.id)
+  addDependendieToList(doc.id);
   console.log("trying to add: " + doc.id);
 }
 

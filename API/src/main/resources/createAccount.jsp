@@ -15,6 +15,85 @@
                 <%-- addding the elements here --%>
             </div>
 
+            <%-- selecting the project type header--%>
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Project Type:</h6>
+            </div>
+
+            <%-- selecting the project type --%>
+            <div class="card-body create-account">
+                    <div class="my-2"></div>
+                    <div class="create-form">
+                        <label for="maven">Maven</label>
+                        <input type="radio" id="create-form-maven" name="radio" value="maven" onclick="changeProjectDetails(this.value);">
+                    </div>
+
+                    <div class="my-2"></div>
+                    <div class="create-form">
+                        <label for="node">Node</label>
+                        <input type="radio" id="create-form-node" name="radio" value="node" onclick="changeProjectDetails(this.value);">
+                    </div>
+            </div>
+            
+            <%-- maven projects header --%>
+            <div class="card-header py-3 collapse multi-collapse" id="create-account-details-maven-header">
+                <h6 class="m-0 font-weight-bold text-primary">Maven</h6>
+            </div>
+
+            <%-- maven projects --%>
+            <div class="card-body create-account collapse multi-collapse" id="create-account-details-maven">
+                
+                <div class="my-2"></div>
+                <div><b>Maven Details</b></div>
+
+                <div class="my-2"></div>
+                <div class="create-form">
+                    <label for="name">Group: </label>
+                    <input type="text" name="group" id="create-form--maven-group" required>
+                </div>
+
+                <div class="my-2"></div>
+                <div class="create-form">
+                    <label for="email">Artifact: </label>
+                    <input type="text" name="artifact" id="create-form-maven-artifact" required>
+                </div>
+                
+                <div class="my-2"></div>
+                <div class="create-form">
+                    <label for="email">Package name: </label>
+                    <input type="text" name="package-name" id="create-form-maven-package-name" required>
+                </div>
+            </div>
+
+            <%-- node projects header --%>
+            <div class="card-header py-3 collapse multi-collapse" id="create-account-details-node-header">
+                <h6 class="m-0 font-weight-bold text-primary">Node</h6>
+            </div>
+
+            <%-- node projects --%>
+            <div class="card-body create-account collapse multi-collapse" id="create-account-details-node">
+                <div class="my-2"></div>
+                <div><b>Node Details</b></div>
+
+                <div class="my-2"></div>
+                <div class="create-form">
+                    <label for="name">Group: </label>
+                    <input type="text" name="group" id="create-form-node-group" required>
+                </div>
+
+                <div class="my-2"></div>
+                <div class="create-form">
+                    <label for="email">Artifact: </label>
+                    <input type="text" name="artifact" id="create-form-node-artifact" required>
+                </div>
+                
+                <div class="my-2"></div>
+                <div class="create-form">
+                    <label for="email">Package name: </label>
+                    <input type="text" name="package-name" id="create-form-node-package-name" required>
+                </div>
+            </div>
+
             <%-- basic project info header--%>
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Basic Info</h6>
@@ -86,85 +165,6 @@
                         <option value="azure">Azure</option>
                         <option value="google">Google</option>
                     </select>
-                </div>
-            </div>
-
-            <%-- selecting the project type header--%>
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Project Type:</h6>
-            </div>
-
-            <%-- selecting the project type --%>
-            <div class="card-body create-account">
-                    <div class="my-2"></div>
-                    <div class="create-form">
-                        <label for="maven">Maven</label>
-                        <input type="radio" id="create-form-maven" name="radio" value="maven" onclick="changeProjectDetails(this.value);">
-                    </div>
-
-                    <div class="my-2"></div>
-                    <div class="create-form">
-                        <label for="node">Node</label>
-                        <input type="radio" id="create-form-node" name="radio" value="node" onclick="changeProjectDetails(this.value);">
-                    </div>
-            </div>
-            
-            <%-- maven projects header --%>
-            <div class="card-header py-3 collapse multi-collapse" id="create-account-details-maven-header">
-                <h6 class="m-0 font-weight-bold text-primary">Maven</h6>
-            </div>
-
-            <%-- maven projects here --%>
-            <div class="card-body create-account collapse multi-collapse" id="create-account-details-maven">
-                
-                <div class="my-2"></div>
-                <div><b>Maven Details</b></div>
-
-                <div class="my-2"></div>
-                <div class="create-form">
-                    <label for="name">Group: </label>
-                    <input type="text" name="group" id="create-form--maven-group" required>
-                </div>
-
-                <div class="my-2"></div>
-                <div class="create-form">
-                    <label for="email">Artifact: </label>
-                    <input type="text" name="artifact" id="create-form-maven-artifact" required>
-                </div>
-                
-                <div class="my-2"></div>
-                <div class="create-form">
-                    <label for="email">Package name: </label>
-                    <input type="text" name="package-name" id="create-form-maven-package-name" required>
-                </div>
-            </div>
-
-            <%-- node projects header --%>
-            <div class="card-header py-3 collapse multi-collapse" id="create-account-details-node-header">
-                <h6 class="m-0 font-weight-bold text-primary">Node</h6>
-            </div>
-
-            <%-- node projects here --%>
-            <div class="card-body create-account collapse multi-collapse" id="create-account-details-node">
-                <div class="my-2"></div>
-                <div><b>Node Details</b></div>
-
-                <div class="my-2"></div>
-                <div class="create-form">
-                    <label for="name">Group: </label>
-                    <input type="text" name="group" id="create-form-node-group" required>
-                </div>
-
-                <div class="my-2"></div>
-                <div class="create-form">
-                    <label for="email">Artifact: </label>
-                    <input type="text" name="artifact" id="create-form-node-artifact" required>
-                </div>
-                
-                <div class="my-2"></div>
-                <div class="create-form">
-                    <label for="email">Package name: </label>
-                    <input type="text" name="package-name" id="create-form-node-package-name" required>
                 </div>
             </div>
 
