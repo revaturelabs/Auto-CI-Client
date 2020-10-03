@@ -77,20 +77,20 @@
 
                 <div class="my-2"></div>
                 <div class="create-form">
-                    <label for="name">Group: </label>
-                    <input type="text" name="group" id="create-form-node-group" required>
+                    <label for="name">Name: </label>
+                    <input type="text" name="name" id="create-form-node-group" required>
                 </div>
 
                 <div class="my-2"></div>
                 <div class="create-form">
-                    <label for="email">Artifact: </label>
-                    <input type="text" name="artifact" id="create-form-node-artifact" required>
+                    <label for="email">Version: </label>
+                    <input type="text" name="version" id="create-form-node-artifact" required>
                 </div>
                 
                 <div class="my-2"></div>
                 <div class="create-form">
-                    <label for="email">Package name: </label>
-                    <input type="text" name="package-name" id="create-form-node-package-name" required>
+                    <label for="email">Main: </label>
+                    <input type="text" name="main" id="create-form-node-package-name" required>
                 </div>
             </div>
 
@@ -190,7 +190,7 @@
     <div class="card shadow mb-4">
 
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Dependencies</h6>
+            <h6 class="m-0 font-weight-bold text-primary" id="create-account-dependency-header">Dependencies</h6>
         </div>
 
         <div class="card-body">
