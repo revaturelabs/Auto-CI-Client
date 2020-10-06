@@ -5,7 +5,24 @@ let depends = [];
 function addDepend(doc) {
   addDependendieToList(doc.id);
   console.log("trying to add: " + doc.id);
-  depends.push(doc);
+
+  // create object and add it to the dependency array
+  let object = {};
+  if (searchSwitch === "maven") {
+    object = {
+      groupId: doc.g,
+      arifactId: doc.id,
+      version: doc.latestVersion
+    };
+
+  } else if (searchSwitch === "node") {
+    object = {
+      name: doc.id,
+      version: doc.package.version
+    };
+
+  }
+  depends.push(object);
 }
 
 // remove dependency when "remove" button is pressed
@@ -15,9 +32,43 @@ function removeDepend(id) {
 
   for (let i = 0; i < depends.length; i++) {
     if (depends[i].id === id) {
-      depends.splice(i,1);
-    }    
+      depends.splice(i, 1);
+    }
   }
+}
+
+// creating json
+function createJson() {
+  let json = {};
+  if (searchSwitch === "maven") {
+    json = {
+      projectName: $("#create-form-project-name").val(),
+      version: $("#create-form-version").val(),
+      description: $("#create-form-description").val(),
+      groupId: $("#create-form-maven-group").val(),
+      arifactId: $("#create-form-maven-artifact").val(),
+      packaging: "",
+      javaVersion: "",
+      mainClass: "",
+      depenencies: [depends]
+    };
+
+  } else if (searchSwitch === "node") {
+    json = {
+      projectName: $("#create-form-project-name").val(),
+      version: $("#create-form-version").val(),
+      description: $("#create-form-description").val(),
+      mainEntrypoint: "",
+      keywords: "",
+      author: "",
+      liscense: "",
+      depenencies: [depends],
+      devDependencies: [depends],
+      scripts: []
+    };
+  }
+  // test purposes DELETE AFTER 
+  console.log(json);
 }
 
 // Search 
@@ -76,7 +127,7 @@ function createDependTableMaven(docs) {
     td3.innerHTML = doc["latestVersion"];
     td3.setAttribute("id", doc["id"]);
     button.innerHTML = "Add";
-    button.onclick = function () { addDepend(doc) }
+    button.onclick = function () { addDepend(doc, "maven") }
     button.className = "btn btn-sm btn-outline-secondary";
     tr.appendChild(td1);
     tr.appendChild(td2);
@@ -113,7 +164,7 @@ function createDependTableNode(objects) {
     obj['id'] = obj.package['name'];
     td3.setAttribute("id", obj.id);
     button.innerHTML = "Add";
-    button.onclick = function () { addDepend(obj) }
+    button.onclick = function () { addDepend(obj, "node") }
     button.className = "btn btn-sm btn-outline-secondary";
     tr.appendChild(td1);
     tr.appendChild(td2);
