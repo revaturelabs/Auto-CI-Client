@@ -1,4 +1,24 @@
 let searchSwitch;
+let depends = [];
+
+// add dependency when "add" button is pressed
+function addDepend(doc) {
+  addDependendieToList(doc.id);
+  console.log("trying to add: " + doc.id);
+  depends.push(doc);
+}
+
+// remove dependency when "remove" button is pressed
+function removeDepend(id) {
+  console.log(id);
+  document.getElementById(id).remove();
+
+  for (let i = 0; i < depends.length; i++) {
+    if (depends[i].id === id) {
+      depends.splice(i,1);
+    }    
+  }
+}
 
 // Search 
 function searchDepend(term) {
@@ -109,11 +129,6 @@ function createDependTableNode(objects) {
   });
 }
 
-function addDepend(doc) {
-  addDependendieToList(doc.id);
-  console.log("trying to add: " + doc.id);
-}
-
 function removeAllTableRows(id) {
   var node = document.getElementById(id);
   while (node.hasChildNodes()) {
@@ -142,11 +157,6 @@ function changeProjectDetails(id) {
   }
 }
 
-function deleteDependencieFromList(id) {
-  console.log(id);
-  document.getElementById(id).remove();
-}
-
 function addDependendieToList(id) {
   showAddedDependList();
   let button = document.createElement("BUTTON");
@@ -154,7 +164,7 @@ function addDependendieToList(id) {
   i.className = "far fa-times-circle";
   button.classList = "create-account-btn";
   button.innerHTML = id + " ";
-  button.onclick = function () { deleteDependencieFromList(id) }
+  button.onclick = function () { removeDepend(id) }
   button.appendChild(i);
   button.setAttribute("type", "button");
   button.id = id;
