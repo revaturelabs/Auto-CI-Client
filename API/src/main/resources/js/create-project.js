@@ -138,6 +138,9 @@ function removeAllTableRows(id) {
 
 function changeProjectDetails(id) {
   console.log(id);
+  $('#form-account-added-dependencies').empty();
+  depends = [];
+
   if (id === "maven") {
     $('#create-account-details-maven-header').collapse('show');
     $('#create-account-details-maven').collapse('show');
