@@ -3,7 +3,7 @@
 <div class="col-lg-6">
 
     <div class="card shadow mb-4">
-        <form action="" method="get">
+        <form action="" method="">
 
             <%-- added dependencies info header--%>
             <div class="card-header py-3 collapse multi-collapse" id="form-account-added-dependencies-header">
@@ -171,7 +171,7 @@
             <%-- submit button--%>
             <div class="card-body">
                 <div class="my-2"></div>
-                <button type="submit" class="btn btn-success btn-icon-split" onclick="createJson();">
+                <button type="button" class="btn btn-success btn-icon-split" onclick="createJson();">
                     <span class="icon text-white-50">
                         <i class="fas fa-check"></i>
                     </span>
