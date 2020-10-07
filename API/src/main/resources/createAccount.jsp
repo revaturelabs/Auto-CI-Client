@@ -49,19 +49,19 @@
                 <div class="my-2"></div>
                 <div class="create-form">
                     <label for="name">Group: </label>
-                    <input type="text" name="group" id="create-form--maven-group" required>
+                    <input type="text" name="group" id="create-form-maven-group">
                 </div>
 
                 <div class="my-2"></div>
                 <div class="create-form">
                     <label for="email">Artifact: </label>
-                    <input type="text" name="artifact" id="create-form-maven-artifact" required>
+                    <input type="text" name="artifact" id="create-form-maven-artifact">
                 </div>
                 
                 <div class="my-2"></div>
                 <div class="create-form">
                     <label for="email">Package name: </label>
-                    <input type="text" name="package-name" id="create-form-maven-package-name" required>
+                    <input type="text" name="package-name" id="create-form-maven-package-name">
                 </div>
             </div>
 
@@ -78,19 +78,19 @@
                 <div class="my-2"></div>
                 <div class="create-form">
                     <label for="name">Name: </label>
-                    <input type="text" name="name" id="create-form-node-group" required>
+                    <input type="text" name="name" id="create-form-node-name">
                 </div>
 
                 <div class="my-2"></div>
                 <div class="create-form">
                     <label for="email">Version: </label>
-                    <input type="text" name="version" id="create-form-node-artifact" required>
+                    <input type="text" name="version" id="create-form-node-version">
                 </div>
                 
                 <div class="my-2"></div>
                 <div class="create-form">
                     <label for="email">Main: </label>
-                    <input type="text" name="main" id="create-form-node-package-name" required>
+                    <input type="text" name="main" id="create-form-node-main">
                 </div>
             </div>
 
@@ -171,7 +171,7 @@
             <%-- submit button--%>
             <div class="card-body">
                 <div class="my-2"></div>
-                <button type="submit" class="btn btn-success btn-icon-split">
+                <button type="submit" class="btn btn-success btn-icon-split" onclick="createJson();">
                     <span class="icon text-white-50">
                         <i class="fas fa-check"></i>
                     </span>
