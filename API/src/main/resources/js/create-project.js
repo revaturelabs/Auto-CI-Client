@@ -5,7 +5,24 @@ let depends = [];
 function addDepend(doc) {
   addDependendieToList(doc.id);
   console.log("trying to add: " + doc.id);
-  depends.push(doc);
+
+  // create object and add it to the dependency array
+  let object = {};
+  if (searchSwitch === "maven") {
+    object = {
+      groupId: doc.g,
+      arifactId: doc.id,
+      version: doc.latestVersion
+    };
+
+  } else if (searchSwitch === "node") {
+    object = {
+      name: doc.id,
+      version: doc.package.version
+    };
+
+  }
+  depends.push(object);
 }
 
 // remove dependency when "remove" button is pressed
@@ -15,9 +32,71 @@ function removeDepend(id) {
 
   for (let i = 0; i < depends.length; i++) {
     if (depends[i].id === id) {
-      depends.splice(i,1);
-    }    
+      depends.splice(i, 1);
+    }
   }
+}
+
+// creating json
+function createJson() {
+  let json = {};
+  let tempIsMaven = true;
+  if(searchSwitch === "node"){
+    tempIsMaven = false;
+  }
+   
+  json = {
+    githubUsername: $("#create-form-git-user").val(),
+    githubURL: "https://github.com/",
+    isMaven: tempIsMaven,
+    ide: "visualstudiocode",
+    generateGithubActions: false, 
+    mavenData:
+    {
+        projectName: $("#create-form-project-name").val(),
+        version: $("#create-form-version").val(),
+        description: $("#create-form-description").val(),
+        groupId: $("#create-form-maven-group").val(),
+        artifactId: $("#create-form-maven-artifact").val(),
+        packaging: "jar",
+        javaVersion: "1.8",
+        mainClass: "TestApp",
+        dependencies:[depends]
+    },
+    npmData:
+    {
+        projectName: $("#create-form-project-name").val(),
+        version: $("#create-form-version").val(),
+        description: $("#create-form-description").val(),
+        mainEntrypoint: "main.js",
+        keywords: ["kubernetes","AWS"],
+        author: "author",
+        license : "",
+        dependencies: [depends],
+        devDependencies: [depends], 
+        scripts: [{command:"test", script:"echo \"Error: no test specified\" && exit 1"}]
+    }
+  }
+
+  sendToServer(json);
+
+  // test purposes DELETE AFTER 
+  console.log(json);
+}
+
+
+function sendToServer(jsonInput) {
+    console.log("started to send to API");
+
+    fetch('http://a9922a23a32874c8e8f2509b9d044cd2-1946378861.us-east-1.elb.amazonaws.com/frontend', {
+    method: 'post',
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(jsonInput)
+    }).then(res=>res.json())
+    .then(res => console.log(res));
 }
 
 // Search 
@@ -76,7 +155,7 @@ function createDependTableMaven(docs) {
     td3.innerHTML = doc["latestVersion"];
     td3.setAttribute("id", doc["id"]);
     button.innerHTML = "Add";
-    button.onclick = function () { addDepend(doc) }
+    button.onclick = function () { addDepend(doc, "maven") }
     button.className = "btn btn-sm btn-outline-secondary";
     tr.appendChild(td1);
     tr.appendChild(td2);
@@ -113,7 +192,7 @@ function createDependTableNode(objects) {
     obj['id'] = obj.package['name'];
     td3.setAttribute("id", obj.id);
     button.innerHTML = "Add";
-    button.onclick = function () { addDepend(obj) }
+    button.onclick = function () { addDepend(obj, "node") }
     button.className = "btn btn-sm btn-outline-secondary";
     tr.appendChild(td1);
     tr.appendChild(td2);
@@ -138,6 +217,9 @@ function removeAllTableRows(id) {
 
 function changeProjectDetails(id) {
   console.log(id);
+  $('#form-account-added-dependencies').empty();
+  depends = [];
+
   if (id === "maven") {
     $('#create-account-details-maven-header').collapse('show');
     $('#create-account-details-maven').collapse('show');
