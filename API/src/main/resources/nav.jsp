@@ -18,6 +18,14 @@
         </div>
     </form> --%>
 
+    <div class="alert alert-success collapse" id="nav-alert-success">
+        <strong id="nav-alert-success-title">Success!</strong> <span id="nav-alert-success-message"></span>
+    </div>
+
+    <div class="alert alert-warning collapse" id="nav-alert-info">
+        <strong id="nav-alert-info-title">Info!</strong> <span id="nav-alert-info-message"></span>
+    </div>
+
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
 

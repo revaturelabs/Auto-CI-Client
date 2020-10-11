@@ -9,7 +9,7 @@
     <!-- Content Row -->
     <div class="row">
         <!-- create repo-->
-        <jsp:include page="createAccount.jsp" />
+        <jsp:include page="create-account.jsp" />
     </div>
 </div>
 <!-- /.container-fluid -->

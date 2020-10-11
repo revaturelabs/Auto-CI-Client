@@ -21,7 +21,7 @@ public class App {
         final String base = new File("./").getAbsolutePath();
         Tomcat server = new Tomcat();
         server.setBaseDir(new File("target/tomcat/").getAbsolutePath());
-        server.setPort(Integer.valueOf(port.orElse("8080")));
+        server.setPort(Integer.valueOf(port.orElse("8081")));
         server.getConnector();
         Context context = server.addWebapp("", base);
         context.setAltDDName(new File("src/main/WEB-INF/web.xml").getAbsolutePath());

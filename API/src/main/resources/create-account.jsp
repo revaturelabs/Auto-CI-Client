@@ -2,8 +2,35 @@
 <%-- the create account --%>
 <div class="col-lg-6">
 
+    <!-- Card -->
+    <div class="card shadow mb-4 collapse" id="create-account-pipeline-progress">
+
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Pipeline Progress</h6>
+        </div>
+
+        <div class="card-body">
+            <h4 class="small font-weight-bold">Configuration Service <span class="float-right" id="create-account-progress-config-percent">0%</span></h4>
+            <div class="progress mb-4">
+                <div id="create-account-progress-config" class="progress-bar bg-danger" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <h4 class="small font-weight-bold">Initialization Service <span class="float-right" id="create-account-progress-init-percent">0%</span></h4>
+            <div class="progress mb-4">
+                <div id="create-account-progress-init" class="progress-bar bg-warning" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <h4 class="small font-weight-bold">Jenkins Service <span class="float-right" id="create-account-progress-jenkins-percent">0%</span></h4>
+            <div class="progress mb-4">
+                <div id="create-account-progress-jenkins" class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <h4 class="small font-weight-bold">Spinnaker Service <span class="float-right" id="create-account-progress-spinn-percent">0%</span></h4>
+            <div class="progress mb-4">
+                <div id="create-account-progress-spinn" class="progress-bar bg-info" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        </div>
+    </div>
+
     <div class="card shadow mb-4">
-        <form action="" method="">
+        <form id="create-account-form">
 
             <%-- added dependencies info header--%>
             <div class="card-header py-3 collapse multi-collapse" id="form-account-added-dependencies-header">
@@ -25,13 +52,13 @@
                     <div class="my-2"></div>
                     <div class="create-form">
                         <label for="maven">Maven</label>
-                        <input type="radio" id="create-form-maven" name="radio" value="maven" onclick="changeProjectDetails(this.value);">
+                        <input type="radio" id="create-form-maven" name="radio" value="maven" onclick="changeProjectDetails(this.value);" required>
                     </div>
 
                     <div class="my-2"></div>
                     <div class="create-form">
                         <label for="node">Node</label>
-                        <input type="radio" id="create-form-node" name="radio" value="node" onclick="changeProjectDetails(this.value);">
+                        <input type="radio" id="create-form-node" name="radio" value="node" onclick="changeProjectDetails(this.value);" required>
                     </div>
             </div>
             
@@ -163,7 +190,6 @@
                         <option value="other">Other</option>
                         <option value="aws">AWS</option>
                         <option value="azure">Azure</option>
-                        <option value="google">Google</option>
                     </select>
                 </div>
             </div>
@@ -171,14 +197,13 @@
             <%-- submit button--%>
             <div class="card-body">
                 <div class="my-2"></div>
-                <button type="button" class="btn btn-success btn-icon-split" onclick="createJson();">
+                <button type="submit" class="btn btn-success btn-icon-split" >
                     <span class="icon text-white-50">
                         <i class="fas fa-check"></i>
                     </span>
                     <span class="text">Create</span>
                 </button>
             </div>
-        
         </form>
     </div>
 
