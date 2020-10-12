@@ -178,8 +178,8 @@
                 <div class="create-form">
                     <label for="pipeline">CI/CD Pipeline: </label>
                     <select id="pipeline" name="pipeline">
-                        <option value="github">GitHub Actions</option>
                         <option value="jenkins">Jenkins</option>
+                        <option value="github">GitHub Actions</option>
                     </select>
                 </div>
 
@@ -187,7 +187,6 @@
                 <div class="create-form">
                     <label for="cloud-provider">Cloud Provider: </label>
                     <select id="cloud-provider" name="cloud-provider">
-                        <option value="other">Other</option>
                         <option value="aws">AWS</option>
                         <option value="azure">Azure</option>
                     </select>
