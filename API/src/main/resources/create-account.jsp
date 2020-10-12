@@ -177,9 +177,9 @@
                 <div class="my-2"></div>
                 <div class="create-form">
                     <label for="pipeline">CI/CD Pipeline: </label>
-                    <select id="pipeline" name="pipeline">
-                        <option value="jenkins">Jenkins</option>
-                        <option value="github">GitHub Actions</option>
+                    <select id="pipeline-jenkins-github" name="pipeline">
+                        <option value="false">Jenkins</option>
+                        <option value="true">GitHub Actions</option>
                     </select>
                 </div>
 

@@ -1,8 +1,8 @@
 let searchSwitch;
 let dependsMaven = [];
 let dependsNode = [];
-let serverApiUrl = "https://cors-anywhere.herokuapp.com/http://a9922a23a32874c8e8f2509b9d044cd2-1946378861.us-east-1.elb.amazonaws.com/frontend";
-let serverApiStatus = "https://cors-anywhere.herokuapp.com/http://a9922a23a32874c8e8f2509b9d044cd2-1946378861.us-east-1.elb.amazonaws.com/status";
+let serverApiUrl = "http://a9922a23a32874c8e8f2509b9d044cd2-1946378861.us-east-1.elb.amazonaws.com/frontend";
+let serverApiStatus = "http://a9922a23a32874c8e8f2509b9d044cd2-1946378861.us-east-1.elb.amazonaws.com/status";
 // let serverApiUrl = "http://localhost:8080/frontend";
 // let serverApiStatus = "http://localhost:8080/status";
 
@@ -87,7 +87,7 @@ $('#create-account-form').submit(function (event) {
         githubURL: "https://github.com/",
         isMaven: tempIsMaven,
         ide: "visualstudiocode",
-        generateGithubActions: false,
+        generateGithubActions: $("#pipeline-jenkins-github").val(),
         mavenData:
         {
             projectName: $("#create-form-project-name").val(),
