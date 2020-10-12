@@ -78,7 +78,7 @@
                     <label for="name">Domain: </label>
                     <select name="domain" id="create-form-maven-domain" onchange="onDomainChange(this.value);">
                         <option value="com.revature.">com.revature</option>
-                        <option value="com.revatures.labs.">com.revature.labs</option>
+                        <option value="com.revaturelabs.">com.revaturelabs</option>
                     </select>
                 </div>
 
