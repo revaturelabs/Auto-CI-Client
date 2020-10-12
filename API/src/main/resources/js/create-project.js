@@ -95,9 +95,9 @@ $('#create-account-form').submit(function (event) {
             description: $("#create-form-description").val(),
             groupId: $("#create-form-maven-group").val(),
             artifactId: $("#create-form-maven-artifact").val(),
-            packaging: "jar",
+            packaging: $("#create-form-maven-package-name").val(),
             javaVersion: "1.8",
-            mainClass: "TestApp",
+            mainClass: "App",
             dependencies: dependsMaven
             // dependencies: [{groupId:"com.ex", artifactId:"example", version:"1.5.0"}]
         },
@@ -108,7 +108,7 @@ $('#create-account-form').submit(function (event) {
             description: $("#create-form-description").val(),
             mainEntrypoint: "main.js",
             keywords: ["kubernetes", "AWS"],
-            author: "author",
+            author: $('#create-form-owner').val(),
             license: "",
             dependencies: dependsNode,
             devDependencies: dependsNode,
