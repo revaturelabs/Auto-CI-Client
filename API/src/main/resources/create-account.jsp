@@ -12,11 +12,11 @@
         <div class="card-body">
             <h4 class="small font-weight-bold">Configuration Service <span class="float-right" id="create-account-progress-config-percent">0%</span></h4>
             <div class="progress mb-4">
-                <div id="create-account-progress-config" class="progress-bar bg-danger" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                <div id="create-account-progress-config" class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
             <h4 class="small font-weight-bold">Initialization Service <span class="float-right" id="create-account-progress-init-percent">0%</span></h4>
             <div class="progress mb-4">
-                <div id="create-account-progress-init" class="progress-bar bg-warning" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                <div id="create-account-progress-init" class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
             <h4 class="small font-weight-bold">Jenkins Service <span class="float-right" id="create-account-progress-jenkins-percent">0%</span></h4>
             <div class="progress mb-4">
@@ -24,7 +24,7 @@
             </div>
             <h4 class="small font-weight-bold">Spinnaker Service <span class="float-right" id="create-account-progress-spinn-percent">0%</span></h4>
             <div class="progress mb-4">
-                <div id="create-account-progress-spinn" class="progress-bar bg-info" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                <div id="create-account-progress-spinn" class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
         </div>
     </div>
@@ -137,7 +137,8 @@
                 <div class="my-2"></div>
                 <div class="create-form">
                     <label for="git-user">Github Username: </label>
-                    <input type="text" name="git-user" id="create-form-git-user" required>
+                    <input type="text" name="git-user" id="create-form-git-user" onfocusout="searchGithubUsers(this.value);" required>
+                    <i id="create-form-git-user-valid" class="fas fa-times" style="margin-left: 5px"></i>
                 </div>
 
                 <div class="my-2"></div>

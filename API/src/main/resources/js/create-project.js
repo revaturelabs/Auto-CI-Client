@@ -1,10 +1,10 @@
 let searchSwitch;
 let dependsMaven = [];
 let dependsNode = [];
-let serverApiUrl = "https://cors-anywhere.herokuapp.com/http://a9922a23a32874c8e8f2509b9d044cd2-1946378861.us-east-1.elb.amazonaws.com/frontend";
-let serverApiStatus = "https://cors-anywhere.herokuapp.com/http://a9922a23a32874c8e8f2509b9d044cd2-1946378861.us-east-1.elb.amazonaws.com/status";
-// let serverApiUrl = "http://localhost:8080/frontend";
-// let serverApiStatus = "http://localhost:8080/status";
+// let serverApiUrl = "https://cors-anywhere.herokuapp.com/http://a9922a23a32874c8e8f2509b9d044cd2-1946378861.us-east-1.elb.amazonaws.com/frontend";
+// let serverApiStatus = "https://cors-anywhere.herokuapp.com/http://a9922a23a32874c8e8f2509b9d044cd2-1946378861.us-east-1.elb.amazonaws.com/status";
+let serverApiUrl = "http://localhost:8080/frontend";
+let serverApiStatus = "http://localhost:8080/status";
 
 //after starting pipeline keep track of progress
 let configProgressValue = 0;
@@ -60,11 +60,11 @@ function removeDepend(id) {
 // on submit of create account form
 $('#create-account-form').submit(function (event) {
     event.preventDefault();
-    window.scrollTo(0, 0); 
+    window.scrollTo(0, 0);
     console.log("pressed create");
 
     //set all progress bars to zero
-     $('#create-account-progress-config').css("width", "0%");
+    $('#create-account-progress-config').css("width", "0%");
     $('#create-account-progress-config-percent').html("0%");
 
     $('#create-account-progress-init').css("width", "0%");
@@ -123,6 +123,23 @@ $('#create-account-form').submit(function (event) {
     console.log(json);
 });
 
+function searchGithubUsers(username) {
+    let validGitUser = $("#create-form-git-user-valid");
+    
+    if (!(username === "")) {
+        fetch("https://api.github.com/users/" + username)
+            .then(user => user.json())
+            .then(function (data) {
+                if (data.login == null) {
+                    validGitUser.removeClass("fa-check");
+                    validGitUser.addClass("fa-times");
+                } else {
+                    validGitUser.removeClass("fa-times");
+                    validGitUser.addClass("fa-check");
+                }             
+            });        
+    };
+};
 
 function sendToServer(jsonInput) {
     console.log("started to send to API");
@@ -136,24 +153,24 @@ function sendToServer(jsonInput) {
         },
         body: JSON.stringify(jsonInput)
     })
-    .catch(err => {
-        console.log(err);
-        clearInterval(statusUpdate);
-    })
-    .then(resPromis =>resPromis.json())
-    .then(resObj => {
-        setTimeout(function(){ clearInterval(statusUpdate); }, 3000);
-        console.log(resObj)
-        if(resObj.isValid){
-            $('#nav-alert-success').collapse('show');
-            $('#nav-alert-success-title').html("Success:");
-            $('#nav-alert-success-message').html(resObj['message']);
-        } else {
-            $('#nav-alert-info').collapse('show');
-            $('#nav-alert-info-title').html("Error:");
-            $('#nav-alert-info-message').html(resObj['message']);
-        }
-    });
+        .catch(err => {
+            console.log(err);
+            clearInterval(statusUpdate);
+        })
+        .then(resPromis => resPromis.json())
+        .then(resObj => {
+            setTimeout(function () { clearInterval(statusUpdate); }, 3000);
+            console.log(resObj)
+            if (resObj.isValid) {
+                $('#nav-alert-success').collapse('show');
+                $('#nav-alert-success-title').html("Success:");
+                $('#nav-alert-success-message').html(resObj['message']);
+            } else {
+                $('#nav-alert-info').collapse('show');
+                $('#nav-alert-info-title').html("Error:");
+                $('#nav-alert-info-message').html(resObj['message']);
+            }
+        });
 };
 
 function getStatusUpdate() {
@@ -166,63 +183,79 @@ function getStatusUpdate() {
         },
         body: ""
     })
-    .then(resPromis =>resPromis.json())
-    .then(resObj => {
-        console.log(resObj)
-        $('#create-account-pipeline-progress').collapse('show');
-        
-        //configuation progress updating GUI with percent complete
-        if(resObj['configuration'] === "started"){
-            if(configProgressValue < 90){
-                configProgressValue = configProgressValue + 10;
-            };
-            let value = configProgressValue.toString() + "%";
-            $('#create-account-progress-config').css("width", value);
-            $('#create-account-progress-config-percent').html(value);
-        } else if(resObj['configuration'] === "finished"){
-            $('#create-account-progress-config').css("width", "100%");
-            $('#create-account-progress-config-percent').html("100%");
-        }
+        .then(resPromis => resPromis.json())
+        .then(resObj => {
+            console.log(resObj)
+            $('#create-account-pipeline-progress').collapse('show');
 
-        //initialization progress updating GUI with percent complete
-        if(resObj['initialization'] === "started"){
-            if(initProgressValue < 90){
-                initProgressValue = initProgressValue + 10;
-            };
-            let value = initProgressValue.toString() + "%";
-            $('#create-account-progress-init').css("width", value);
-            $('#create-account-progress-init-percent').html(value);
-        } else if(resObj['initialization'] === "finished"){
-            $('#create-account-progress-init').css("width", "100%");
-            $('#create-account-progress-init-percent').html("100%");
-        }
+            //configuation progress updating GUI with percent complete
+            if (resObj['configuration'] === "started") {
+                if (configProgressValue < 90) {
+                    configProgressValue = configProgressValue + 10;
+                };
+                let value = configProgressValue.toString() + "%";
+                $('#create-account-progress-config').css("width", value);
+                $('#create-account-progress-config-percent').html(value);
+            } else if (resObj['configuration'] === "finished") {
+                $('#create-account-progress-config').css("width", "100%");
+                $('#create-account-progress-config-percent').html("100%");
+                $('#create-account-progress-config').addClass("bg-success");
+            } else if (resObj['configuration'] === "failed") {
+                $('#create-account-progress-config-percent').html("failed");
+                $('#create-account-progress-config').addClass("bg-danger");
+            }
 
-        //jenkins progress updating GUI with percent complete
-        if(resObj['jenkins'] === "started"){
-            if(jenkinsProgressValue < 90){
-                jenkinsProgressValue = jenkinsProgressValue + 10;
-            };
-            let value = jenkinsProgressValue.toString() + "%";
-            $('#create-account-progress-jenkins').css("width", value);
-            $('#create-account-progress-jenkins-percent').html(value);
-        } else if(resObj['jenkins'] === "finished"){
-            $('#create-account-progress-jenkins').css("width", "100%");
-            $('#create-account-progress-jenkins-percent').html("100%");
-        }
+            //initialization progress updating GUI with percent complete
+            if (resObj['initialization'] === "started") {
+                if (initProgressValue < 90) {
+                    initProgressValue = initProgressValue + 10;
+                };
+                let value = initProgressValue.toString() + "%";
+                $('#create-account-progress-init').css("width", value);
+                $('#create-account-progress-init-percent').html(value);
+            } else if (resObj['initialization'] === "finished") {
+                $('#create-account-progress-init').css("width", "100%");
+                $('#create-account-progress-init-percent').html("100%");
+                $('#create-account-progress-init').addClass("bg-success");
+            } else if (resObj['initialization'] === "failed") {
+                $('#create-account-progress-init-percent').html("failed");
+                $('#create-account-progress-init').addClass("bg-danger");
+            }
 
-        //spinnaker progress updating GUI with percent complete
-        if(resObj['spinnaker'] === "started"){
-            if(spinnProgressValue < 90){
-                spinnProgressValue = spinnProgressValue + 10;
-            };
-            let value = spinnProgressValue.toString() + "%";
-            $('#create-account-progress-spinn').css("width", value);
-            $('#create-account-progress-spinn-percent').html(value);
-        } else if(resObj['spinnaker'] === "finished"){
-            $('#create-account-progress-spinn').css("width", "100%");
-            $('#create-account-progress-spinn-percent').html("100%");
-        }
-    });
+            //jenkins progress updating GUI with percent complete
+            if (resObj['jenkins'] === "started") {
+                if (jenkinsProgressValue < 90) {
+                    jenkinsProgressValue = jenkinsProgressValue + 10;
+                };
+                let value = jenkinsProgressValue.toString() + "%";
+                $('#create-account-progress-jenkins').css("width", value);
+                $('#create-account-progress-jenkins-percent').html(value);
+            } else if (resObj['jenkins'] === "finished") {
+                $('#create-account-progress-jenkins').css("width", "100%");
+                $('#create-account-progress-jenkins-percent').html("100%");
+                $('#create-account-progress-jenkins').addClass("bg-success");
+            } else if (resObj['jenkins'] === "failed") {
+                $('#create-account-progress-jenkins-percent').html("failed");
+                $('#create-account-progress-jenkins').addClass("bg-danger");
+            }
+
+            //spinnaker progress updating GUI with percent complete
+            if (resObj['spinnaker'] === "started") {
+                if (spinnProgressValue < 90) {
+                    spinnProgressValue = spinnProgressValue + 10;
+                };
+                let value = spinnProgressValue.toString() + "%";
+                $('#create-account-progress-spinn').css("width", value);
+                $('#create-account-progress-spinn-percent').html(value);
+            } else if (resObj['spinnaker'] === "finished") {
+                $('#create-account-progress-spinn').css("width", "100%");
+                $('#create-account-progress-spinn-percent').html("100%");
+                $('#create-account-progress-spinn').addClass("bg-success");
+            } else if (resObj['spinnaker'] === "failed") {
+                $('#create-account-progress-spinnaker-percent').html("failed");
+                $('#create-account-progress-spinn').addClass("bg-danger");
+            }
+        });
 };
 
 // Search 
