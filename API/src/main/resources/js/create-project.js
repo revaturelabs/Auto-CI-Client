@@ -64,7 +64,7 @@ $('#create-account-form').submit(function (event) {
     console.log("pressed create");
 
     //set all progress bars to zero
-     $('#create-account-progress-config').css("width", "0%");
+    $('#create-account-progress-config').css("width", "0%");
     $('#create-account-progress-config-percent').html("0%");
 
     $('#create-account-progress-init').css("width", "0%");
@@ -112,7 +112,7 @@ $('#create-account-form').submit(function (event) {
             license: "",
             dependencies: dependsNode,
             devDependencies: dependsNode,
-            scripts: [{ command: "test", script: "echo \"Error: no test specified\" && exit 1" }]
+            scripts: [{ command: "test", script: "echo \"Warning: no test specified\" \u0026\u0026 exit 0" }]
         }
     };
 
