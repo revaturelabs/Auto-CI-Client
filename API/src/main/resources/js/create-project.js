@@ -11,6 +11,7 @@ let configProgressValue = 0;
 let initProgressValue = 0;
 let jenkinsProgressValue = 0;
 let spinnProgressValue = 0;
+let domainText = "com.revature.";
 
 
 // add dependency when "add" button is pressed
@@ -123,9 +124,20 @@ $('#create-account-form').submit(function (event) {
     console.log(json);
 });
 
+$('.create-form-domain-text').keydown(function (e) {
+    let oldvalue = $(this).val();
+    let field = this;
+    setTimeout(function () {
+        if (field.value.indexOf(domainText) !== 0) {
+            $(field).val(oldvalue);
+        }
+    }, 1);
+
+});
+
 function searchGithubUsers(username) {
     let validGitUser = $("#create-form-git-user-valid");
-    
+
     if (!(username === "")) {
         fetch("https://api.github.com/users/" + username)
             .then(user => user.json())
@@ -136,10 +148,15 @@ function searchGithubUsers(username) {
                 } else {
                     validGitUser.removeClass("fa-times");
                     validGitUser.addClass("fa-check");
-                }             
-            });        
+                }
+            });
     };
 };
+
+function onDomainChange(domain) {
+    domainText = domain;
+    $('.create-form-domain-text').val(domainText);
+}
 
 function sendToServer(jsonInput) {
     console.log("started to send to API");
