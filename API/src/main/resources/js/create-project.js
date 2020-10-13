@@ -88,7 +88,7 @@ $('#create-account-form').submit(function (event) {
         githubURL: "https://github.com/",
         isMaven: tempIsMaven,
         ide: "visualstudiocode",
-        generateGithubActions: $("#pipeline-jenkins-github").val(),
+        makeJenkinsWebhook: $("#pipeline-jenkins-github").val(),
         mavenData:
         {
             projectName: $("#create-form-project-name").val(),
