@@ -11,12 +11,13 @@ let configProgressValue = 0;
 let initProgressValue = 0;
 let jenkinsProgressValue = 0;
 let spinnProgressValue = 0;
+let domainText = "com.revature.";
 
 
 // add dependency when "add" button is pressed
 function addDepend(doc) {
     addDependendieToList(doc.id);
-    console.log("trying to add: " + doc.id);
+    // console.log("trying to add: " + doc.id);
 
     // create object and add it to the dependency array
     let object = {};
@@ -38,7 +39,7 @@ function addDepend(doc) {
 
 // remove dependency when "remove" button is pressed
 function removeDepend(id) {
-    console.log(id);
+    // console.log(id);
     document.getElementById(id).remove();
 
     if (searchSwitch === "maven") {
@@ -61,7 +62,7 @@ function removeDepend(id) {
 $('#create-account-form').submit(function (event) {
     event.preventDefault();
     window.scrollTo(0, 0);
-    console.log("pressed create");
+    // console.log("pressed create");
 
     //set all progress bars to zero
     $('#create-account-progress-config').css("width", "0%");
@@ -87,7 +88,7 @@ $('#create-account-form').submit(function (event) {
         githubURL: "https://github.com/",
         isMaven: tempIsMaven,
         ide: "visualstudiocode",
-        generateGithubActions: $("#pipeline-jenkins-github").val(),
+        makeJenkinsWebhook: $("#pipeline-jenkins-github").val(),
         mavenData:
         {
             projectName: $("#create-form-project-name").val(),
@@ -123,9 +124,20 @@ $('#create-account-form').submit(function (event) {
     console.log(json);
 });
 
+$('.create-form-domain-text').keydown(function (e) {
+    let oldvalue = $(this).val();
+    let field = this;
+    setTimeout(function () {
+        if (field.value.indexOf(domainText) !== 0) {
+            $(field).val(oldvalue);
+        }
+    }, 1);
+
+});
+
 function searchGithubUsers(username) {
     let validGitUser = $("#create-form-git-user-valid");
-    
+
     if (!(username === "")) {
         fetch("https://api.github.com/users/" + username)
             .then(user => user.json())
@@ -136,13 +148,18 @@ function searchGithubUsers(username) {
                 } else {
                     validGitUser.removeClass("fa-times");
                     validGitUser.addClass("fa-check");
-                }             
-            });        
+                }
+            });
     };
 };
 
+function onDomainChange(domain) {
+    domainText = domain;
+    $('.create-form-domain-text').val(domainText);
+}
+
 function sendToServer(jsonInput) {
-    console.log("started to send to API");
+    // console.log("started to send to API");
     let statusUpdate = setInterval(getStatusUpdate, 500);
 
     fetch(serverApiUrl, {
@@ -154,13 +171,13 @@ function sendToServer(jsonInput) {
         body: JSON.stringify(jsonInput)
     })
         .catch(err => {
-            console.log(err);
+            // console.log(err);
             clearInterval(statusUpdate);
         })
         .then(resPromis => resPromis.json())
         .then(resObj => {
             setTimeout(function () { clearInterval(statusUpdate); }, 3000);
-            console.log(resObj)
+            // console.log(resObj)
             if (resObj.isValid) {
                 $('#nav-alert-success').collapse('show');
                 $('#nav-alert-success-title').html("Success:");
@@ -185,7 +202,7 @@ function getStatusUpdate() {
     })
         .then(resPromis => resPromis.json())
         .then(resObj => {
-            console.log(resObj)
+            // console.log(resObj)
             $('#create-account-pipeline-progress').collapse('show');
 
             //configuation progress updating GUI with percent complete
@@ -270,7 +287,7 @@ function searchDepend(term) {
 
 //maven
 function searchMaven(term) {
-    console.log("starting " + term);
+    // console.log("starting " + term);
     if (!(term === "")) {
         fetch('https://cors-anywhere.herokuapp.com/https://search.maven.org/solrsearch/select?' + 'q=' + term + '&rows=20&wt=json')
             .then(response => response.json())
@@ -285,13 +302,13 @@ function searchMaven(term) {
 
 //node
 function searchNode(term) {
-    console.log("starting " + term);
+    // console.log("starting " + term);
     if (!(term === "")) {
         fetch('https://cors-anywhere.herokuapp.com/http://registry.npmjs.com/-/v1/search?' + 'text=' + term + '&size=20')
             .then(response => response.json())
             .catch(err => { console.log("found nothing") })
             .then(function (data) {
-                console.log(data);
+                // console.log(data);
                 createDependTableNode(data.objects);
             })
             .catch(err => { console.log("found nothing") });
@@ -376,7 +393,7 @@ function removeAllTableRows(id) {
 };
 
 function changeProjectDetails(id) {
-    console.log(id);
+    // console.log(id);
     $('#form-account-added-dependencies').empty();
     dependsMaven = [];
     dependsNode = [];
