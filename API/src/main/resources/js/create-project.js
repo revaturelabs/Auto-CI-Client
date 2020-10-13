@@ -1,10 +1,10 @@
 let searchSwitch;
 let dependsMaven = [];
 let dependsNode = [];
-let serverApiUrl = "http://a9922a23a32874c8e8f2509b9d044cd2-1946378861.us-east-1.elb.amazonaws.com/frontend";
-let serverApiStatus = "http://a9922a23a32874c8e8f2509b9d044cd2-1946378861.us-east-1.elb.amazonaws.com/status";
-// let serverApiUrl = "http://localhost:8080/frontend";
-// let serverApiStatus = "http://localhost:8080/status";
+// let serverApiUrl = "http://a9922a23a32874c8e8f2509b9d044cd2-1946378861.us-east-1.elb.amazonaws.com/frontend";
+// let serverApiStatus = "http://a9922a23a32874c8e8f2509b9d044cd2-1946378861.us-east-1.elb.amazonaws.com/status";
+let serverApiUrl = "http://localhost:8080/frontend";
+let serverApiStatus = "http://localhost:8080/status";
 
 //after starting pipeline keep track of progress
 let configProgressValue = 0;
@@ -182,10 +182,12 @@ function sendToServer(jsonInput) {
                 $('#nav-alert-success').collapse('show');
                 $('#nav-alert-success-title').html("Success:");
                 $('#nav-alert-success-message').html(resObj['message']);
+                setInterval(hideMessage, 5000);
             } else {
                 $('#nav-alert-info').collapse('show');
                 $('#nav-alert-info-title').html("Error:");
                 $('#nav-alert-info-message').html(resObj['message']);
+                setInterval(hideMessage, 5000);
             }
         });
 };
@@ -435,3 +437,8 @@ function showAddedDependList() {
     $('#form-account-added-dependencies-header').collapse('show');
     $('#form-account-added-dependencies').collapse('show');
 };
+
+function hideMessage(){
+    $('#nav-alert-success').collapse('hide');
+    $('#nav-alert-info').collapse('hide');
+}
