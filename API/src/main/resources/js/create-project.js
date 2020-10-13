@@ -1,10 +1,10 @@
 let searchSwitch;
 let dependsMaven = [];
 let dependsNode = [];
-let serverApiUrl = "http://a9922a23a32874c8e8f2509b9d044cd2-1946378861.us-east-1.elb.amazonaws.com/frontend";
-let serverApiStatus = "http://a9922a23a32874c8e8f2509b9d044cd2-1946378861.us-east-1.elb.amazonaws.com/status";
-// let serverApiUrl = "http://localhost:8080/frontend";
-// let serverApiStatus = "http://localhost:8080/status";
+// let serverApiUrl = "http://a9922a23a32874c8e8f2509b9d044cd2-1946378861.us-east-1.elb.amazonaws.com/frontend";
+// let serverApiStatus = "http://a9922a23a32874c8e8f2509b9d044cd2-1946378861.us-east-1.elb.amazonaws.com/status";
+let serverApiUrl = "http://localhost:8080/frontend";
+let serverApiStatus = "http://localhost:8080/status";
 
 //after starting pipeline keep track of progress
 let configProgressValue = 0;
@@ -17,7 +17,7 @@ let domainText = "com.revature.";
 // add dependency when "add" button is pressed
 function addDepend(doc) {
     addDependendieToList(doc.id);
-    console.log("trying to add: " + doc.id);
+    // console.log("trying to add: " + doc.id);
 
     // create object and add it to the dependency array
     let object = {};
@@ -39,7 +39,7 @@ function addDepend(doc) {
 
 // remove dependency when "remove" button is pressed
 function removeDepend(id) {
-    console.log(id);
+    // console.log(id);
     document.getElementById(id).remove();
 
     if (searchSwitch === "maven") {
@@ -62,7 +62,7 @@ function removeDepend(id) {
 $('#create-account-form').submit(function (event) {
     event.preventDefault();
     window.scrollTo(0, 0);
-    console.log("pressed create");
+    // console.log("pressed create");
 
     //set all progress bars to zero
     $('#create-account-progress-config').css("width", "0%");
@@ -159,7 +159,7 @@ function onDomainChange(domain) {
 }
 
 function sendToServer(jsonInput) {
-    console.log("started to send to API");
+    // console.log("started to send to API");
     let statusUpdate = setInterval(getStatusUpdate, 500);
 
     fetch(serverApiUrl, {
@@ -171,13 +171,13 @@ function sendToServer(jsonInput) {
         body: JSON.stringify(jsonInput)
     })
         .catch(err => {
-            console.log(err);
+            // console.log(err);
             clearInterval(statusUpdate);
         })
         .then(resPromis => resPromis.json())
         .then(resObj => {
             setTimeout(function () { clearInterval(statusUpdate); }, 3000);
-            console.log(resObj)
+            // console.log(resObj)
             if (resObj.isValid) {
                 $('#nav-alert-success').collapse('show');
                 $('#nav-alert-success-title').html("Success:");
@@ -202,7 +202,7 @@ function getStatusUpdate() {
     })
         .then(resPromis => resPromis.json())
         .then(resObj => {
-            console.log(resObj)
+            // console.log(resObj)
             $('#create-account-pipeline-progress').collapse('show');
 
             //configuation progress updating GUI with percent complete
@@ -287,7 +287,7 @@ function searchDepend(term) {
 
 //maven
 function searchMaven(term) {
-    console.log("starting " + term);
+    // console.log("starting " + term);
     if (!(term === "")) {
         fetch('https://cors-anywhere.herokuapp.com/https://search.maven.org/solrsearch/select?' + 'q=' + term + '&rows=20&wt=json')
             .then(response => response.json())
@@ -302,13 +302,13 @@ function searchMaven(term) {
 
 //node
 function searchNode(term) {
-    console.log("starting " + term);
+    // console.log("starting " + term);
     if (!(term === "")) {
         fetch('https://cors-anywhere.herokuapp.com/http://registry.npmjs.com/-/v1/search?' + 'text=' + term + '&size=20')
             .then(response => response.json())
             .catch(err => { console.log("found nothing") })
             .then(function (data) {
-                console.log(data);
+                // console.log(data);
                 createDependTableNode(data.objects);
             })
             .catch(err => { console.log("found nothing") });
@@ -393,7 +393,7 @@ function removeAllTableRows(id) {
 };
 
 function changeProjectDetails(id) {
-    console.log(id);
+    // console.log(id);
     $('#form-account-added-dependencies').empty();
     dependsMaven = [];
     dependsNode = [];

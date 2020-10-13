@@ -120,7 +120,7 @@
                 <div class="my-2"></div>
                 <div class="create-form">
                     <label for="email">Version: </label>
-                    <input type="text" name="version" id="create-form-node-version">
+                    <input type="text" name="version" id="create-form-node-version" value="1.0.0">
                 </div>
                 
                 <div class="my-2"></div>
