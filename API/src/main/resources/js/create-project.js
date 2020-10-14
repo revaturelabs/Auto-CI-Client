@@ -1,10 +1,10 @@
 let searchSwitch;
 let dependsMaven = [];
 let dependsNode = [];
-// let serverApiUrl = "http://a9922a23a32874c8e8f2509b9d044cd2-1946378861.us-east-1.elb.amazonaws.com/frontend";
-// let serverApiStatus = "http://a9922a23a32874c8e8f2509b9d044cd2-1946378861.us-east-1.elb.amazonaws.com/status";
-let serverApiUrl = "http://localhost:8080/frontend";
-let serverApiStatus = "http://localhost:8080/status";
+let serverApiUrl = "http://a9922a23a32874c8e8f2509b9d044cd2-1946378861.us-east-1.elb.amazonaws.com/frontend";
+let serverApiStatus = "http://a9922a23a32874c8e8f2509b9d044cd2-1946378861.us-east-1.elb.amazonaws.com/status";
+// let serverApiUrl = "http://localhost:8080/frontend";
+// let serverApiStatus = "http://localhost:8080/status";
 
 //after starting pipeline keep track of progress
 let configProgressValue = 0;
@@ -107,7 +107,8 @@ $('#create-account-form').submit(function (event) {
             description: $("#create-form-description").val(),
             groupId: $("#create-form-maven-group").val(),
             artifactId: $("#create-form-maven-artifact").val(),
-            packaging: $("#create-form-maven-package-name").val(),
+            packaging: "jar",
+            packageName: $("#create-form-maven-package-name").val(),
             javaVersion: "1.8",
             mainClass: "App",
             dependencies: dependsMaven

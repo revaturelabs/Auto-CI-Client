@@ -172,12 +172,6 @@
 
                 <div class="my-2"></div>
                 <div class="create-form">
-                    <label for="git-repo-name">Github Repo Name: </label>
-                    <input type="text" name="git-repo-name" id="create-form-git-repo-name" required>
-                </div>
-
-                <div class="my-2"></div>
-                <div class="create-form">
                     <label for="email">Description: </label>
                     <input type="text" name="description" id="create-form-description">
                 </div>
@@ -202,8 +196,8 @@
                 <div class="create-form">
                     <label for="pipeline">CI/CD Pipeline: </label>
                     <select id="pipeline-jenkins-github" name="pipeline">
-                        <option value="false">Jenkins</option>
-                        <option value="true">GitHub Actions</option>
+                        <option value="true">Jenkins</option>
+                        <option value="false">GitHub Actions</option>
                     </select>
                 </div>
 
