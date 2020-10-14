@@ -154,7 +154,7 @@
                 <div class="my-2"></div>
                 <div class="create-form">
                     <label for="owner">Slack Channel </label>
-                    <input type="text" name="slackChannel" id="create-form-slack-channel" required>
+                    <input type="text" name="slackChannel" id="create-form-slack-channel">
                 </div>
 
                 <div class="my-2"></div>
@@ -179,7 +179,7 @@
                 <div class="my-2"></div>
                 <div class="create-form">
                     <label for="email">Description: </label>
-                    <input type="text" name="description" id="create-form-description" required>
+                    <input type="text" name="description" id="create-form-description">
                 </div>
 
                 <div class="my-2"></div>
