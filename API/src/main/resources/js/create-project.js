@@ -1,16 +1,17 @@
 let searchSwitch;
 let dependsMaven = [];
 let dependsNode = [];
-// let serverApiUrl = "http://a9922a23a32874c8e8f2509b9d044cd2-1946378861.us-east-1.elb.amazonaws.com/frontend";
-// let serverApiStatus = "http://a9922a23a32874c8e8f2509b9d044cd2-1946378861.us-east-1.elb.amazonaws.com/status";
-let serverApiUrl = "http://localhost:8080/frontend";
-let serverApiStatus = "http://localhost:8080/status";
+let serverApiUrl = "http://a9922a23a32874c8e8f2509b9d044cd2-1946378861.us-east-1.elb.amazonaws.com/frontend";
+let serverApiStatus = "http://a9922a23a32874c8e8f2509b9d044cd2-1946378861.us-east-1.elb.amazonaws.com/status";
+// let serverApiUrl = "http://localhost:8080/frontend";
+// let serverApiStatus = "http://localhost:8080/status";
 
 //after starting pipeline keep track of progress
 let configProgressValue = 0;
 let initProgressValue = 0;
 let jenkinsProgressValue = 0;
 let spinnProgressValue = 0;
+let azureProgressValue = 0;
 let domainText = "com.revature.";
 
 
@@ -77,6 +78,9 @@ $('#create-account-form').submit(function (event) {
     $('#create-account-progress-spinn').css("width", "0%");
     $('#create-account-progress-spinn-percent').html("0%");
 
+    $('#create-account-progress-azure').css("width", "0%");
+    $('#create-account-progress-azure-percent').html("0%");
+
     let json = {};
     let tempIsMaven = true;
     if (searchSwitch === "node") {
@@ -87,8 +91,10 @@ $('#create-account-form').submit(function (event) {
         githubUsername: $("#create-form-git-user").val(),
         githubURL: "https://github.com/",
         isMaven: tempIsMaven,
+        isAzure: $("#cloud-provider").val(),
         ide: "visualstudiocode",
         makeJenkinsWebhook: $("#pipeline-jenkins-github").val(),
+        slackChannel: $("#create-form-slack-channel").val(),
         mavenData:
         {
             projectName: $("#create-form-project-name").val(),
@@ -100,7 +106,6 @@ $('#create-account-form').submit(function (event) {
             javaVersion: "1.8",
             mainClass: "App",
             dependencies: dependsMaven
-            // dependencies: [{groupId:"com.ex", artifactId:"example", version:"1.5.0"}]
         },
         npmData:
         {
@@ -116,7 +121,6 @@ $('#create-account-form').submit(function (event) {
             scripts: [{ command: "test", script: "echo \"Warning: no test specified\" \u0026\u0026 exit 0" }]
         }
     };
-
 
     sendToServer(json);
 
@@ -187,6 +191,7 @@ function sendToServer(jsonInput) {
                 $('#nav-alert-info').collapse('show');
                 $('#nav-alert-info-title').html("Error:");
                 $('#nav-alert-info-message').html(resObj['message']);
+
                 setInterval(hideMessage, 5000);
             }
         });
@@ -204,8 +209,17 @@ function getStatusUpdate() {
     })
         .then(resPromis => resPromis.json())
         .then(resObj => {
-            // console.log(resObj)
+            console.log(resObj);
             $('#create-account-pipeline-progress').collapse('show');
+
+            //showing ether azure or jenkins and spinn
+            if($("#cloud-provider").val() === "true"){
+                $('#create-account-azure-container').collapse('show');
+                $('#create-account-jen-spinn-container').collapse('hide');
+            } else {
+                $('#create-account-azure-container').collapse('hide');
+                $('#create-account-jen-spinn-container').collapse('show');
+            }
 
             //configuation progress updating GUI with percent complete
             if (resObj['configuration'] === "started") {
@@ -273,6 +287,23 @@ function getStatusUpdate() {
             } else if (resObj['spinnaker'] === "failed") {
                 $('#create-account-progress-spinnaker-percent').html("failed");
                 $('#create-account-progress-spinn').addClass("bg-danger");
+            }
+
+            //azure progress updating GUI with percent complete
+            if (resObj['azure'] === "started") {
+                if (azureProgressValue < 90) {
+                    azureProgressValue = azureProgressValue + 10;
+                };
+                let value = azureProgressValue.toString() + "%";
+                $('#create-account-progress-azure').css("width", value);
+                $('#create-account-progress-azure-percent').html(value);
+            } else if (resObj['azure'] === "finished") {
+                $('#create-account-progress-azure').css("width", "100%");
+                $('#create-account-progress-azure-percent').html("100%");
+                $('#create-account-progress-azure').addClass("bg-success");
+            } else if (resObj['azure'] === "failed") {
+                $('#create-account-progress-azure-percent').html("failed");
+                $('#create-account-progress-azure').addClass("bg-danger");
             }
         });
 };
@@ -438,6 +469,7 @@ function showAddedDependList() {
     $('#form-account-added-dependencies').collapse('show');
 };
 
+//hiding all pipeline progress and messages after 5 seconds of completion or error
 function hideMessage(){
     $('#nav-alert-success').collapse('hide');
     $('#nav-alert-info').collapse('hide');
