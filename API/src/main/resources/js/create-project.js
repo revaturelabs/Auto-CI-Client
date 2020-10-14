@@ -1,10 +1,10 @@
 let searchSwitch;
 let dependsMaven = [];
 let dependsNode = [];
-let serverApiUrl = "http://a9922a23a32874c8e8f2509b9d044cd2-1946378861.us-east-1.elb.amazonaws.com/frontend";
-let serverApiStatus = "http://a9922a23a32874c8e8f2509b9d044cd2-1946378861.us-east-1.elb.amazonaws.com/status";
-// let serverApiUrl = "http://localhost:8080/frontend";
-// let serverApiStatus = "http://localhost:8080/status";
+// let serverApiUrl = "http://a9922a23a32874c8e8f2509b9d044cd2-1946378861.us-east-1.elb.amazonaws.com/frontend";
+// let serverApiStatus = "http://a9922a23a32874c8e8f2509b9d044cd2-1946378861.us-east-1.elb.amazonaws.com/status";
+let serverApiUrl = "http://localhost:8080/frontend";
+let serverApiStatus = "http://localhost:8080/status";
 
 //after starting pipeline keep track of progress
 let configProgressValue = 0;
@@ -68,18 +68,23 @@ $('#create-account-form').submit(function (event) {
     //set all progress bars to zero
     $('#create-account-progress-config').css("width", "0%");
     $('#create-account-progress-config-percent').html("0%");
+    $('#create-account-progress-config').removeClass("bg-danger");
 
     $('#create-account-progress-init').css("width", "0%");
     $('#create-account-progress-init-percent').html("0%");
+    $('#create-account-progress-init').removeClass("bg-danger");
 
     $('#create-account-progress-jenkins').css("width", "0%");
     $('#create-account-progress-jenkins-percent').html("0%");
+    $('#create-account-progress-jenkins').removeClass("bg-danger");
 
     $('#create-account-progress-spinn').css("width", "0%");
     $('#create-account-progress-spinn-percent').html("0%");
+    $('#create-account-progress-spinn').removeClass("bg-danger");
 
     $('#create-account-progress-azure').css("width", "0%");
     $('#create-account-progress-azure-percent').html("0%");
+    $('#create-account-progress-azure').removeClass("bg-danger");
 
     let json = {};
     let tempIsMaven = true;
