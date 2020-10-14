@@ -105,17 +105,17 @@ $('#create-account-form').submit(function (event) {
             projectName: $("#create-form-project-name").val(),
             version: $("#create-form-version").val(),
             description: $("#create-form-description").val(),
-            groupId: $("#create-form-maven-group").val(),
-            artifactId: $("#create-form-maven-artifact").val(),
+            groupId: $('#create-form-maven-domain').val() + $("#create-form-maven-group").val(),
+            artifactId: $('#create-form-maven-domain').val() + $("#create-form-maven-artifact").val(),
             packaging: "jar",
-            packageName: $("#create-form-maven-package-name").val(),
+            packageName: $('#create-form-maven-domain').val() + $("#create-form-maven-package-name").val(),
             javaVersion: "1.8",
             mainClass: "App",
             dependencies: dependsMaven
         },
         npmData:
         {
-            projectName: $("#create-form-project-name").val(),
+            projectName: $('#create-form-maven-domain').val() + $("#create-form-node-name").val(),
             version: $("#create-form-version").val(),
             description: $("#create-form-description").val(),
             mainEntrypoint: "main.js",
@@ -132,17 +132,6 @@ $('#create-account-form').submit(function (event) {
 
     // test purposes DELETE AFTER 
     console.log(json);
-});
-
-$('.create-form-domain-text').keydown(function (e) {
-    let oldvalue = $(this).val();
-    let field = this;
-    setTimeout(function () {
-        if (field.value.indexOf(domainText) !== 0) {
-            $(field).val(oldvalue);
-        }
-    }, 1);
-
 });
 
 function searchGithubUsers(username) {
@@ -162,11 +151,6 @@ function searchGithubUsers(username) {
             });
     };
 };
-
-function onDomainChange(domain) {
-    domainText = domain;
-    $('.create-form-domain-text').val(domainText);
-}
 
 function sendToServer(jsonInput) {
     // console.log("started to send to API");
@@ -198,7 +182,7 @@ function sendToServer(jsonInput) {
                 $('#nav-alert-info-title').html("Error:");
                 $('#nav-alert-info-message').html(resObj['message']);
 
-                setInterval(hideMessage, 5000);
+                setInterval(hideMessage, 10000);
             }
         });
 };

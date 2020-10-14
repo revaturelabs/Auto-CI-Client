@@ -84,7 +84,7 @@
                 <div class="my-2"></div>
                 <div class="create-form">
                     <label for="name">Domain: </label>
-                    <select name="domain" id="create-form-maven-domain" onchange="onDomainChange(this.value);">
+                    <select name="domain" id="create-form-maven-domain">
                         <option value="com.revature.">com.revature</option>
                         <option value="com.revaturelabs.">com.revaturelabs</option>
                     </select>
@@ -93,19 +93,19 @@
                 <div class="my-2"></div>
                 <div class="create-form">
                     <label for="name">Group: </label>
-                    <input type="text" name="group" id="create-form-maven-group" value="com.revature." class="create-form-domain-text">
+                    <input type="text" name="group" id="create-form-maven-group" class="create-form-domain-text">
                 </div>
 
                 <div class="my-2"></div>
                 <div class="create-form">
                     <label for="email">Artifact: </label>
-                    <input type="text" name="artifact" id="create-form-maven-artifact" value="com.revature." class="create-form-domain-text">
+                    <input type="text" name="artifact" id="create-form-maven-artifact" class="create-form-domain-text">
                 </div>
                 
                 <div class="my-2"></div>
                 <div class="create-form">
                     <label for="email">Package name: </label>
-                    <input type="text" name="package-name" id="create-form-maven-package-name" value="com.revature." class="create-form-domain-text">
+                    <input type="text" name="package-name" id="create-form-maven-package-name" class="create-form-domain-text">
                 </div>
             </div>
 
